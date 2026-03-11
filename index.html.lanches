@@ -1,0 +1,2634 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sabor Caseiro Lanches - Cardápio Digital</title>
+  
+  <!-- Meta tags para redes sociais -->
+  <meta property="og:title" content="Sabor Caseiro Lanches - Cardápio Digital"/>
+  <meta property="og:description" content="Deliciosos lanches caseiros! Cuscuz, Tapioca, Pão na Chapa, Pastéis e muito mais. Delivery no Jereissati II e III."/>
+  <meta property="og:image" content="https://i.ibb.co/XxdNVVy5/Av-Marginal-Nordeste-304-JEREISSATI-3-Pacatuba-CE-. -0000.png"/>
+  <meta property="og:url" content=""/>
+  <meta property="og:type" content="website"/>
+  
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Sabor Caseiro Lanches - Cardápio Digital"/>
+  <meta name="twitter:description" content="Deliciosos lanches caseiros! Cuscuz, Tapioca, Pão na Chapa, Pastéis e muito mais. Delivery no Jereissati II e III."/>
+  <meta name="twitter:image" content="https://i.ibb.co/XxdNVVy5/Av-Marginal-Nordeste-304-JEREISSATI-3-Pacatuba-CE-. -0000.png"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    .card-hover{transition:transform .3s, box-shadow .3s}
+    .card-hover:hover{transform:translateY(-2px); box-shadow:0 8px 25px -5px rgba(0,0,0,.12)}
+    .smooth-scroll{scroll-behavior:smooth}
+    .gradient-text{background:linear-gradient(135deg,#FF6B35 0%,#F7931E 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .orange-gradient{background:linear-gradient(135deg,#FF6B35 0%,#F7931E 100%)}
+    .orange-hover:hover{background:linear-gradient(135deg,#FF5722 0%,#FF8F00 100%)}
+    .category-card{background:white;border:2px solid #FFF3E0}
+    .menu-item{background:white;border:1px solid #FFE0B2;border-radius:14px}
+    .menu-item:hover{border-color:#FF6B35;box-shadow:0 4px 12px rgba(255,107,53,.15)}
+    .section-bg{background:#FFF8F1}
+    .glow{box-shadow:0 14px 38px rgba(255,107,53,.55)}
+    .modal{background:rgba(0,0,0,.5)}
+    .badge{display:inline-flex;align-items:center;gap:.35rem;background:linear-gradient(135deg,#FF6B35 0%,#F7931E 100%);color:#fff;font-weight:800;padding:.2rem .55rem;border-radius:999px;font-size:.7rem;letter-spacing:.3px}
+    .banner-glow{transition: transform .3s, box-shadow .3s, filter .3s; box-shadow: 0 8px 24px -10px rgba(0,0,0,.12);}
+    .banner-glow:hover{transform: translateY(-1px) scale(1.01); box-shadow: 0 22px 44px -12px rgba(255,107,53,.35); filter: saturate(1.05);}
+    .carrinho-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);z-index:1000;display:none}
+    .carrinho-modal{position:fixed;top:0;right:-100%;width:100%;max-width:500px;height:100%;background:white;z-index:1001;transition:right .3s ease;overflow-y:auto}
+    .carrinho-modal.open{right:0}
+    .cart-counter{position:absolute;top:-8px;right:-8px;background:#FF6B35;color:white;border-radius:50%;width:20px;height:20px;font-size:12px;display:flex;align-items:center;justify-content:center;font-weight:bold}
+    .scroll-to-top{position:fixed;bottom:20px;right:20px;width:50px;height:50px;background:linear-gradient(135deg,#FF6B35 0%,#F7931E 100%);color:white;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 12px rgba(255,107,53,.3);transition:all .3s ease;z-index:40;opacity:0;visibility:hidden;transform:translateY(20px)}
+    .scroll-to-top.show{opacity:1;visibility:visible;transform:translateY(0)}
+    .scroll-to-top:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(255,107,53,.4);background:linear-gradient(135deg,#FF5722 0%,#FF8F00 100%)}
+  </style>
+</head>
+<body class="smooth-scroll bg-white text-gray-800 font-sans">
+
+  <!-- Header -->
+  <header class="bg-white shadow-sm fixed w-full top-0 z-40 border-b border-gray-100">
+    <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <h1 class="text-lg font-semibold">Sabor Caseiro Lanches</h1>
+        <div id="status-indicator" class="flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold">
+          <div id="status-dot" class="w-2 h-2 rounded-full"></div>
+          <span id="status-text">Verificando...</span>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <button onclick="mostrarInformacoes()" class="p-2 text-gray-600 hover:text-orange-500" title="Informações do estabelecimento">
+          <i class="fas fa-info-circle text-xl"></i>
+        </button>
+        <button onclick="abrirCarrinho()" class="relative p-2 text-gray-600 hover:text-orange-500">
+          <i class="fas fa-shopping-cart text-xl"></i>
+          <span id="cart-counter" class="cart-counter hidden">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero com Banner -->
+  <section class="pt-16 pb-6 bg-white">
+    <div class="max-w-6xl mx-auto px-4 text-center">
+      <a href="https://ibb.co/7J9GHw4D" target="_blank" rel="noopener noreferrer" class="group block">
+        <img
+          src="https://i.ibb.co/VWKvd7mG/Sabor-. -0000.png"
+          alt="Banner Sabor Caseiro - Promo"
+          onerror="this.src=''; this.alt='Imagem não pôde carregar'; this.style.display='none';"
+          class="w-full mx-auto rounded-2xl border-2 border-orange-300 banner-glow"
+          style="max-width: 100%; height: auto;"
+        >
+      </a>
+      <h2 class="text-3xl md:text-4xl font-bold mt-6 mb-2">Cardápio Digital</h2>
+      <p class="text-gray-600">Faça seu pedido e envie pelo WhatsApp</p>
+    </div>
+  </section>
+
+  <!-- Categorias -->
+  <section class="pb-8 bg-white">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
+        <div class="category-card rounded-lg p-3 text-center card-hover cursor-pointer relative overflow-hidden" onclick="document.getElementById('caldo').scrollIntoView({behavior:'smooth'})">
+          <div class="w-12 h-12 mx-auto mb-2 rounded-full overflow-hidden bg-orange-100">
+            <img src="https://images.unsplash.com/photo-1547592166-23ac45744acd?w=100&h=100&fit=crop&crop=center" alt="Caldo" class="w-full h-full object-cover" onerror="this.src=''; this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div class="w-full h-full flex items-center justify-center text-2xl" style="display: none;">🍲</div>
+          </div>
+          <div class="text-xs font-semibold">Caldo</div>
+        </div>
+        <div class="category-card rounded-lg p-3 text-center card-hover cursor-pointer relative overflow-hidden" onclick="document.getElementById('cuscuz').scrollIntoView({behavior:'smooth'})">
+          <div class="w-12 h-12 mx-auto mb-2 rounded-full overflow-hidden bg-orange-100">
+            <img src="https://i.ibb.co/MxdMR8qQ/images-15.jpg" alt="Cuscuz" class="w-full h-full object-cover" onerror="this.src=''; this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div class="w-full h-full flex items-center justify-center text-2xl" style="display: none;">🌽</div>
+          </div>
+          <div class="text-xs font-semibold">Cuscuz</div>
+        </div>
+        <div class="category-card rounded-lg p-3 text-center card-hover cursor-pointer relative overflow-hidden" onclick="document.getElementById('tapioca-recheada').scrollIntoView({behavior:'smooth'})">
+          <div class="w-12 h-12 mx-auto mb-2 rounded-full overflow-hidden bg-orange-100">
+            <img src="https://i.ibb.co/zH2dXqx6/maxresdefault.jpg" alt="Tapioca" class="w-full h-full object-cover" onerror="this.src=''; this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div class="w-full h-full flex items-center justify-center text-2xl" style="display: none;">🫓</div>
+          </div>
+          <div class="text-xs font-semibold">Tapioca Recheada</div>
+        </div>
+        <div class="category-card rounded-lg p-3 text-center card-hover cursor-pointer relative overflow-hidden" onclick="document.getElementById('tapioca-redonda').scrollIntoView({behavior:'smooth'})">
+          <div class="w-12 h-12 mx-auto mb-2 rounded-full overflow-hidden bg-orange-100">
+            <img src="https://i.ibb.co/Kz7hk3Td/images-14.jpg" alt="Tapioca Redonda" class="w-full h-full object-cover" onerror="this.src=''; this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div class="w-full h-full flex items-center justify-center text-2xl" style="display: none;">⚪</div>
+          </div>
+          <div class="text-xs font-semibold">Tapioca Redonda</div>
+        </div>
+        <div class="category-card rounded-lg p-3 text-center card-hover cursor-pointer relative overflow-hidden" onclick="document.getElementById('pasteis').scrollIntoView({behavior:'smooth'})">
+          <div class="w-12 h-12 mx-auto mb-2 rounded-full overflow-hidden bg-orange-100">
+            <img src="https://i.ibb.co/TqwpdgMK/download-25.jpg" alt="Pastéis" class="w-full h-full object-cover" onerror="this.src=''; this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div class="w-full h-full flex items-center justify-center text-2xl" style="display: none;">🥟</div>
+          </div>
+          <div class="text-xs font-semibold">Pastéis</div>
+        </div>
+        <div class="category-card rounded-lg p-3 text-center card-hover cursor-pointer relative overflow-hidden" onclick="document.getElementById('pao-na-chapa').scrollIntoView({behavior:'smooth'})">
+          <div class="w-12 h-12 mx-auto mb-2 rounded-full overflow-hidden bg-orange-100">
+            <img src="https://i.ibb.co/DgRD4GDb/images-16.jpg" alt="Pão na Chapa" class="w-full h-full object-cover" onerror="this.src=''; this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div class="w-full h-full flex items-center justify-center text-2xl" style="display: none;">🥖</div>
+          </div>
+          <div class="text-xs font-semibold">Pão na Chapa</div>
+        </div>
+        <div class="category-card rounded-lg p-3 text-center card-hover cursor-pointer relative overflow-hidden" onclick="document.getElementById('bolos').scrollIntoView({behavior:'smooth'})">
+          <div class="w-12 h-12 mx-auto mb-2 rounded-full overflow-hidden bg-orange-100">
+            <img src="https://i.ibb.co/j9LVWt0R/images-17.jpg" alt="Bolos" class="w-full h-full object-cover" onerror="this.src=''; this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div class="w-full h-full flex items-center justify-center text-2xl" style="display: none;">🍰</div>
+          </div>
+          <div class="text-xs font-semibold">Bolos</div>
+        </div>
+        <div class="category-card rounded-lg p-3 text-center card-hover cursor-pointer relative overflow-hidden" onclick="document.getElementById('bebidas').scrollIntoView({behavior:'smooth'})">
+          <div class="w-12 h-12 mx-auto mb-2 rounded-full overflow-hidden bg-orange-100">
+            <img src="https://i.ibb.co/qM1LVCK3/images-18.jpg" alt="Bebidas" class="w-full h-full object-cover" onerror="this.src=''; this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div class="w-full h-full flex items-center justify-center text-2xl" style="display: none;">🥤</div>
+          </div>
+          <div class="text-xs font-semibold">Bebidas</div>
+        </div>
+        <div class="category-card rounded-lg p-3 text-center card-hover cursor-pointer relative overflow-hidden" onclick="document.getElementById('refri-latinha').scrollIntoView({behavior:'smooth'})">
+          <div class="w-12 h-12 mx-auto mb-2 rounded-full overflow-hidden bg-orange-100">
+            <img src="https://images.unsplash.com/photo-1629203851122-3726ecdf080e?w=100&h=100&fit=crop&crop=center" alt="Refrigerante" class="w-full h-full object-cover" onerror="this.src=''; this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div class="w-full h-full flex items-center justify-center text-2xl" style="display: none;">🥤</div>
+          </div>
+          <div class="text-xs font-semibold">Refri na Latinha</div>
+        </div>
+        <div class="category-card rounded-lg p-3 text-center card-hover cursor-pointer relative overflow-hidden" onclick="document.getElementById('vitaminas').scrollIntoView({behavior:'smooth'})">
+          <div class="w-12 h-12 mx-auto mb-2 rounded-full overflow-hidden bg-orange-100">
+            <img src="https://images.unsplash.com/photo-1610970881699-44a5587cabec?w=100&h=100&fit=crop&crop=center" alt="Vitaminas" class="w-full h-full object-cover" onerror="this.src=''; this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div class="w-full h-full flex items-center justify-center text-2xl" style="display: none;">🥤</div>
+          </div>
+          <div class="text-xs font-semibold">Vitaminas</div>
+        </div>
+        <div class="category-card rounded-lg p-3 text-center card-hover cursor-pointer relative overflow-hidden" onclick="document.getElementById('sucos').scrollIntoView({behavior:'smooth'})">
+          <div class="w-12 h-12 mx-auto mb-2 rounded-full overflow-hidden bg-orange-100">
+            <img src="https://images.unsplash.com/photo-1622597467836-f3285f2131b8?w=100&h=100&fit=crop&crop=center" alt="Sucos" class="w-full h-full object-cover" onerror="this.src=''; this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div class="w-full h-full flex items-center justify-center text-2xl" style="display: none;">🧃</div>
+          </div>
+          <div class="text-xs font-semibold">Sucos</div>
+        </div>
+        <div class="category-card rounded-lg p-3 text-center card-hover cursor-pointer relative overflow-hidden" onclick="document.getElementById('cafe').scrollIntoView({behavior:'smooth'})">
+          <div class="w-12 h-12 mx-auto mb-2 rounded-full overflow-hidden bg-orange-100">
+            <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=100&h=100&fit=crop&crop=center" alt="Café" class="w-full h-full object-cover" onerror="this.src=''; this.style.display='none'; this.nextElementSibling.style.display='block';">
+            <div class="w-full h-full flex items-center justify-center text-2xl" style="display: none;">☕</div>
+          </div>
+          <div class="text-xs font-semibold">Café</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Caldo -->
+  <section id="caldo" class="py-10 section-bg">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="flex items-center mb-6">
+        <span class="text-2xl mr-3">🍲</span>
+        <h3 class="text-2xl font-bold">Caldo</h3>
+      </div>
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <div>
+              <h4 class="font-semibold">Caldo no Copo Pequeno</h4>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="font-bold text-lg">R$ 6,00</span>
+              <button class="w-10 h-10 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Caldo no Copo Pequeno',6.00)">
+                <i class="fas fa-plus"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <div>
+              <h4 class="font-semibold">Caldo no Copo Grande</h4>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="font-bold text-lg">R$ 8,00</span>
+              <button class="w-10 h-10 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Caldo no Copo Grande',8.00)">
+                <i class="fas fa-plus"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cuscuz -->
+  <section id="cuscuz" class="py-10 bg-white">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="flex items-center mb-6">
+        <span class="text-2xl mr-3">🌽</span>
+        <h3 class="text-2xl font-bold">Cuscuz com Recheio</h3>
+      </div>
+      <p class="text-gray-600 mb-4">Com Margarina, Frango, Queijo, Carne Moída, Calabresa, Ovo, Presunto e muito mais!</p>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Cuscuz com Margarina</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 4,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Cuscuz com Margarina',4.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Cuscuz com Presunto</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 5,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Cuscuz com Presunto',5.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Cuscuz com Queijo</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 6,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Cuscuz com Queijo',6.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Cuscuz com Ovo</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 6,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Cuscuz com Ovo',6.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Cuscuz com Frango</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 8,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Cuscuz com Frango',8.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Cuscuz com Queijo e Ovo</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 8,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Cuscuz com Queijo e Ovo',8.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Cuscuz com Queijo e Presunto</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 8,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Cuscuz com Queijo e Presunto',8.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Cuscuz com Carne Moída</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 9,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Cuscuz com Carne Moída',9.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Cuscuz com Calabresa</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 9,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Cuscuz com Calabresa',9.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Cuscuz com Frango e Queijo</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 10,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Cuscuz com Frango e Queijo',10.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Cuscuz com Frango e Ovo</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 10,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Cuscuz com Frango e Ovo',10.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Cuscuz com Calabresa e Queijo</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 10,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Cuscuz com Calabresa e Queijo',10.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Cuscuz com Carne e Queijo</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 10,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Cuscuz com Carne e Queijo',10.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Cuscuz com Carne e Ovo</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 10,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Cuscuz com Carne e Ovo',10.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Cuscuz com Calabresa e Frango</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 10,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Cuscuz com Calabresa e Frango',10.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Cuscuz com Carne de Sol</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 12,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Cuscuz com Carne de Sol',12.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Cuscuz com Carne e Frango</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 12,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Cuscuz com Carne e Frango',12.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Cuscuz com Frango, Ovo e Queijo</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 13,50</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Cuscuz com Frango, Ovo e Queijo',13.50)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Cuscuz com Carne, Ovo e Queijo</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 13,50</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Cuscuz com Carne, Ovo e Queijo',13.50)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Cuscuz com Calabresa, Frango e Queijo</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 13,50</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Cuscuz com Calabresa, Frango e Queijo',13.50)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Cuscuz com Calabresa, Frango e Ovo</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 13,50</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Cuscuz com Calabresa, Frango e Ovo',13.50)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Cuscuz com Carne de Sol e Queijo</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 13,50</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Cuscuz com Carne de Sol e Queijo',13.50)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Cuscuz Completo</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 15,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Cuscuz Completo',15.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tapioca Recheada -->
+  <section id="tapioca-recheada" class="py-10 section-bg">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="flex items-center mb-6">
+        <span class="text-2xl mr-3">🫓</span>
+        <h3 class="text-2xl font-bold">Tapioca com Recheio</h3>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Tapioca com Margarina</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 4,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Tapioca com Margarina',4.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Tapioca com Presunto</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 5,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Tapioca com Presunto',5.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Tapioca com Leite Condensado</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 5,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Tapioca com Leite Condensado',5.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Tapioca com Queijo</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 6,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Tapioca com Queijo',6.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Tapioca com Ovo</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 6,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Tapioca com Ovo',6.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Tapioca com Calabresa</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 7,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Tapioca com Calabresa',7.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Tapioca com Queijo e Ovo</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 7,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Tapioca com Queijo e Ovo',7.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Tapioca com Queijo e Presunto</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 7,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Tapioca com Queijo e Presunto',7.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Tapioca com Carne Moída</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 8,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Tapioca com Carne Moída',8.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Tapioca com Frango</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 8,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Tapioca com Frango',8.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Tapioca com Frango e Queijo</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 10,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Tapioca com Frango e Queijo',10.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Tapioca com Frango e Ovo</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 10,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Tapioca com Frango e Ovo',10.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Tapioca com Frango e Calabresa</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 10,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Tapioca com Frango e Calabresa',10.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Tapioca com Carne de Sol</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 10,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Tapioca com Carne de Sol',10.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Tapioca com Carne e Queijo</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 10,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Tapioca com Carne e Queijo',10.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Tapioca com Carne e Ovo</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 10,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Tapioca com Carne e Ovo',10.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Tapioca com Ovo e Presunto</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 10,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Tapioca com Ovo e Presunto',10.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Tapioca com Frango, Queijo e Bacon</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 11,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Tapioca com Frango, Queijo e Bacon',11.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Tapioca com Carne de Sol e Queijo</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 12,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Tapioca com Carne de Sol e Queijo',12.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Tapioca com Carne e Frango</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 12,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Tapioca com Carne e Frango',12.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tapioca Redonda -->
+  <section id="tapioca-redonda" class="py-10 bg-white">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="flex items-center mb-6">
+        <span class="text-2xl mr-3">⚪</span>
+        <h3 class="text-2xl font-bold">Tapioca Redonda</h3>
+      </div>
+      <p class="text-gray-600 mb-4">Simples, Leite Condensado, Queijo, Queijo e Ovo</p>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Tapioca Redonda Simples</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 2,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Tapioca Redonda Simples',2.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Tapioca Redonda com Leite Condensado</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 3,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Tapioca Redonda com Leite Condensado',3.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Tapioca Redonda com Queijo</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 4,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Tapioca Redonda com Queijo',4.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Tapioca Redonda com Queijo e Ovo</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 5,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Tapioca Redonda com Queijo e Ovo',5.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Tapioca Redonda com Queijo e Presunto</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 5,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Tapioca Redonda com Queijo e Presunto',5.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pastéis -->
+  <section id="pasteis" class="py-10 section-bg">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="flex items-center mb-6">
+        <span class="text-2xl mr-3">🥟</span>
+        <h3 class="text-2xl font-bold">Pastéis com Recheio</h3>
+      </div>
+      <p class="text-gray-600 mb-4">Calabresa, Queijo, Frango, Carne Moída, Presunto e muito mais!</p>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Pastel com Presunto</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 5,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Pastel com Presunto',5.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Pastel com Queijo</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 6,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Pastel com Queijo',6.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Pastel com Queijo e Presunto</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 7,50</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Pastel com Queijo e Presunto',7.50)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Pastel com Calabresa</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 8,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Pastel com Calabresa',8.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Pastel com Frango</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 8,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Pastel com Frango',8.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Pastel com Carne Moída</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 8,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Pastel com Carne Moída',8.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Pastel com Calabresa e Queijo</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 8,50</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Pastel com Calabresa e Queijo',8.50)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Pastel com Frango e Queijo</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 9,50</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Pastel com Frango e Queijo',9.50)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Pastel com Carne e Queijo</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 10,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Pastel com Carne e Queijo',10.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Pastel com Frango e Calabresa</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 10,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Pastel com Frango e Calabresa',10.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Pastel com Carne e Frango</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 12,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Pastel com Carne e Frango',12.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Pastel com Carne e Calabresa</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 12,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Pastel com Carne e Calabresa',12.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Pastel com Frango, Calabresa e Queijo</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 13,50</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Pastel com Frango, Calabresa e Queijo',13.50)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Pastel Completo</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 15,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Pastel Completo',15.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pão na Chapa -->
+  <section id="pao-na-chapa" class="py-10 bg-white">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="flex items-center mb-6">
+        <span class="text-2xl mr-3">🥖</span>
+        <h3 class="text-2xl font-bold">Pão na Chapa</h3>
+      </div>
+      <p class="text-gray-600 mb-4">Selecione suas opções: Pão Bola ou Pão Carioca</p>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Pão na Chapa com Margarina</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 2,50</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Pão na Chapa com Margarina',2.50)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Pão na Chapa com Presunto</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 4,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Pão na Chapa com Presunto',4.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Pão na Chapa com Ovo</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 4,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Pão na Chapa com Ovo',4.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Pão na Chapa com Queijo</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 4,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Pão na Chapa com Queijo',4.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Pão na Chapa com Carne de Hamburg</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 5,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Pão na Chapa com Carne de Hamburg',5.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Pão na Chapa com Calabresa</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 5,50</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Pão na Chapa com Calabresa',5.50)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Pão na Chapa com Frango</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 5,50</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Pão na Chapa com Frango',5.50)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Pão na Chapa com Carne Moída</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 5,50</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Pão na Chapa com Carne Moída',5.50)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Pão na Chapa com Queijo e Ovo</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 6,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Pão na Chapa com Queijo e Ovo',6.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Pão na Chapa com Queijo e Presunto</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 6,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Pão na Chapa com Queijo e Presunto',6.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Pão na Chapa com Frango e Queijo</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 7,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Pão na Chapa com Frango e Queijo',7.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Pão na Chapa com Frango e Calabresa</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 7,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Pão na Chapa com Frango e Calabresa',7.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Pão na Chapa com Carne de Hamburg e Queijo</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 7,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Pão na Chapa com Carne de Hamburg e Queijo',7.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Pão na Chapa com Carne e Ovo</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 7,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Pão na Chapa com Carne e Ovo',7.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Pão na Chapa com Frango e Ovo</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 7,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Pão na Chapa com Frango e Ovo',7.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Pão na Chapa com Queijo, Ovo e Presunto</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 7,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Pão na Chapa com Queijo, Ovo e Presunto',7.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Pão na Chapa com Carne e Queijo</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 7,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Pão na Chapa com Carne e Queijo',7.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Pão na Chapa com Carne de Sol</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 7,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Pão na Chapa com Carne de Sol',7.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Pão na Chapa com Carne de Hamburg, Queijo e Presunto</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 8,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Pão na Chapa com Carne de Hamburg, Queijo e Presunto',8.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Pão na Chapa com Carne de Sol e Queijo</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 9,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Pão na Chapa com Carne de Sol e Queijo',9.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Pão na Chapa Completo</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 10,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Pão na Chapa Completo',10.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bolos -->
+  <section id="bolos" class="py-10 section-bg">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="flex items-center mb-6">
+        <span class="text-2xl mr-3">🍰</span>
+        <h3 class="text-2xl font-bold">Bolos</h3>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Pedaço de Bolo Mole</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 3,50</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Pedaço de Bolo Mole',3.50)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Pedaço de Bolo de Milho</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 3,50</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Pedaço de Bolo de Milho',3.50)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Pudim</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 6,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Pudim',6.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bebidas -->
+  <section id="bebidas" class="py-10 bg-white">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="flex items-center mb-6">
+        <span class="text-2xl mr-3">🥤</span>
+        <h3 class="text-2xl font-bold">Bebidas</h3>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Cajuina 330ml</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 3,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Cajuina 330ml',3.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Refrigerante Coca Cola 250ml</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 3,50</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Refrigerante Coca Cola 250ml',3.50)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Coca Cola 1L Retornável</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 8,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Coca Cola 1L Retornável',8.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Coca Cola Ks</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 4,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Coca Cola Ks',4.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">São Geraldo 200ml</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 2,50</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('São Geraldo 200ml',2.50)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">São Geraldo 600ml</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 8,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('São Geraldo 600ml',8.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Refri na Latinha -->
+  <section id="refri-latinha" class="py-10 section-bg">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="flex items-center mb-6">
+        <span class="text-2xl mr-3">🥤</span>
+        <h3 class="text-2xl font-bold">Refri na Latinha</h3>
+      </div>
+      <p class="text-gray-600 mb-4">Escolha sua latinha</p>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Coca Cola na Latinha Zero</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 5,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Coca Cola na Latinha Zero',5.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Coca Cola na Latinha Original</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 5,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Coca Cola na Latinha Original',5.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">São Geraldo na Latinha</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 6,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('São Geraldo na Latinha',6.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Vitaminas -->
+  <section id="vitaminas" class="py-10 bg-white">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="flex items-center mb-6">
+        <span class="text-2xl mr-3">🥤</span>
+        <h3 class="text-2xl font-bold">Vitaminas 400ml</h3>
+      </div>
+      <p class="text-gray-600 mb-4">Manga, Acerola, Goiaba, Graviola, Maracujá, Cajá, Siriguela</p>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Vitamina de Manga</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 7,50</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Vitamina de Manga',7.50)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Vitamina de Acerola</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 7,50</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Vitamina de Acerola',7.50)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Vitamina de Goiaba</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 7,50</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Vitamina de Goiaba',7.50)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Vitamina de Graviola</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 9,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Vitamina de Graviola',9.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Vitamina de Maracujá</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 9,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Vitamina de Maracujá',9.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Vitamina de Cajá</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 9,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Vitamina de Cajá',9.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Vitamina de Siriguela</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 7,50</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Vitamina de Siriguela',7.50)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Vitamina de Tamarindo</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 7,50</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Vitamina de Tamarindo',7.50)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Vitamina de Caju</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 7,50</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Vitamina de Caju',7.50)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sucos -->
+  <section id="sucos" class="py-10 section-bg">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="flex items-center mb-6">
+        <span class="text-2xl mr-3">🧃</span>
+        <h3 class="text-2xl font-bold">Sucos</h3>
+      </div>
+      <p class="text-gray-600 mb-4">Maracujá, Cajá, Goiaba, Acerola, Siriguela, Manga, Graviola e Tamarindo</p>
+      
+      <!-- Sucos 250ml -->
+      <div class="mb-8">
+        <h4 class="text-lg font-semibold mb-4">Sucos 250ml</h4>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="menu-item p-4 card-hover">
+            <div class="flex justify-between items-center">
+              <span class="font-medium">Suco de Maracujá 250ml</span>
+              <div class="flex items-center gap-3">
+                <span class="font-bold">R$ 4,00</span>
+                <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Suco de Maracujá 250ml',4.00)">
+                  <i class="fas fa-plus text-xs"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="menu-item p-4 card-hover">
+            <div class="flex justify-between items-center">
+              <span class="font-medium">Suco de Cajá 250ml</span>
+              <div class="flex items-center gap-3">
+                <span class="font-bold">R$ 4,00</span>
+                <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Suco de Cajá 250ml',4.00)">
+                  <i class="fas fa-plus text-xs"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="menu-item p-4 card-hover">
+            <div class="flex justify-between items-center">
+              <span class="font-medium">Suco de Goiaba 250ml</span>
+              <div class="flex items-center gap-3">
+                <span class="font-bold">R$ 4,00</span>
+                <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Suco de Goiaba 250ml',4.00)">
+                  <i class="fas fa-plus text-xs"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="menu-item p-4 card-hover">
+            <div class="flex justify-between items-center">
+              <span class="font-medium">Suco de Acerola 250ml</span>
+              <div class="flex items-center gap-3">
+                <span class="font-bold">R$ 4,00</span>
+                <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Suco de Acerola 250ml',4.00)">
+                  <i class="fas fa-plus text-xs"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="menu-item p-4 card-hover">
+            <div class="flex justify-between items-center">
+              <span class="font-medium">Suco de Siriguela 250ml</span>
+              <div class="flex items-center gap-3">
+                <span class="font-bold">R$ 4,00</span>
+                <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Suco de Siriguela 250ml',4.00)">
+                  <i class="fas fa-plus text-xs"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="menu-item p-4 card-hover">
+            <div class="flex justify-between items-center">
+              <span class="font-medium">Suco de Manga 250ml</span>
+              <div class="flex items-center gap-3">
+                <span class="font-bold">R$ 4,00</span>
+                <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Suco de Manga 250ml',4.00)">
+                  <i class="fas fa-plus text-xs"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="menu-item p-4 card-hover">
+            <div class="flex justify-between items-center">
+              <span class="font-medium">Suco de Graviola 250ml</span>
+              <div class="flex items-center gap-3">
+                <span class="font-bold">R$ 4,00</span>
+                <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Suco de Graviola 250ml',4.00)">
+                  <i class="fas fa-plus text-xs"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="menu-item p-4 card-hover">
+            <div class="flex justify-between items-center">
+              <span class="font-medium">Suco de Tamarindo 250ml</span>
+              <div class="flex items-center gap-3">
+                <span class="font-bold">R$ 4,00</span>
+                <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Suco de Tamarindo 250ml',4.00)">
+                  <i class="fas fa-plus text-xs"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sucos Garrafa 300ml -->
+      <div class="mb-8">
+        <h4 class="text-lg font-semibold mb-4">Sucos Garrafa 300ml</h4>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="menu-item p-4 card-hover">
+            <div class="flex justify-between items-center">
+              <span class="font-medium">Suco Garrafa Maracujá 300ml</span>
+              <div class="flex items-center gap-3">
+                <span class="font-bold">R$ 5,50</span>
+                <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Suco Garrafa Maracujá 300ml',5.50)">
+                  <i class="fas fa-plus text-xs"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="menu-item p-4 card-hover">
+            <div class="flex justify-between items-center">
+              <span class="font-medium">Suco Garrafa Cajá 300ml</span>
+              <div class="flex items-center gap-3">
+                <span class="font-bold">R$ 5,50</span>
+                <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Suco Garrafa Cajá 300ml',5.50)">
+                  <i class="fas fa-plus text-xs"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="menu-item p-4 card-hover">
+            <div class="flex justify-between items-center">
+              <span class="font-medium">Suco Garrafa Goiaba 300ml</span>
+              <div class="flex items-center gap-3">
+                <span class="font-bold">R$ 5,50</span>
+                <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Suco Garrafa Goiaba 300ml',5.50)">
+                  <i class="fas fa-plus text-xs"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="menu-item p-4 card-hover">
+            <div class="flex justify-between items-center">
+              <span class="font-medium">Suco Garrafa Acerola 300ml</span>
+              <div class="flex items-center gap-3">
+                <span class="font-bold">R$ 5,50</span>
+                <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Suco Garrafa Acerola 300ml',5.50)">
+                  <i class="fas fa-plus text-xs"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="menu-item p-4 card-hover">
+            <div class="flex justify-between items-center">
+              <span class="font-medium">Suco Garrafa Siriguela 300ml</span>
+              <div class="flex items-center gap-3">
+                <span class="font-bold">R$ 5,50</span>
+                <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Suco Garrafa Siriguela 300ml',5.50)">
+                  <i class="fas fa-plus text-xs"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="menu-item p-4 card-hover">
+            <div class="flex justify-between items-center">
+              <span class="font-medium">Suco Garrafa Manga 300ml</span>
+              <div class="flex items-center gap-3">
+                <span class="font-bold">R$ 5,50</span>
+                <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Suco Garrafa Manga 300ml',5.50)">
+                  <i class="fas fa-plus text-xs"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="menu-item p-4 card-hover">
+            <div class="flex justify-between items-center">
+              <span class="font-medium">Suco Garrafa Graviola 300ml</span>
+              <div class="flex items-center gap-3">
+                <span class="font-bold">R$ 5,50</span>
+                <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Suco Garrafa Graviola 300ml',5.50)">
+                  <i class="fas fa-plus text-xs"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="menu-item p-4 card-hover">
+            <div class="flex justify-between items-center">
+              <span class="font-medium">Suco Garrafa Tamarindo 300ml</span>
+              <div class="flex items-center gap-3">
+                <span class="font-bold">R$ 5,50</span>
+                <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Suco Garrafa Tamarindo 300ml',5.50)">
+                  <i class="fas fa-plus text-xs"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sucos Garrafa 500ml -->
+      <div class="mb-8">
+        <h4 class="text-lg font-semibold mb-4">Sucos Garrafa 500ml</h4>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="menu-item p-4 card-hover">
+            <div class="flex justify-between items-center">
+              <span class="font-medium">Suco Garrafa Maracujá 500ml</span>
+              <div class="flex items-center gap-3">
+                <span class="font-bold">R$ 7,00</span>
+                <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Suco Garrafa Maracujá 500ml',7.00)">
+                  <i class="fas fa-plus text-xs"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="menu-item p-4 card-hover">
+            <div class="flex justify-between items-center">
+              <span class="font-medium">Suco Garrafa Cajá 500ml</span>
+              <div class="flex items-center gap-3">
+                <span class="font-bold">R$ 7,00</span>
+                <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Suco Garrafa Cajá 500ml',7.00)">
+                  <i class="fas fa-plus text-xs"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="menu-item p-4 card-hover">
+            <div class="flex justify-between items-center">
+              <span class="font-medium">Suco Garrafa Goiaba 500ml</span>
+              <div class="flex items-center gap-3">
+                <span class="font-bold">R$ 7,00</span>
+                <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Suco Garrafa Goiaba 500ml',7.00)">
+                  <i class="fas fa-plus text-xs"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="menu-item p-4 card-hover">
+            <div class="flex justify-between items-center">
+              <span class="font-medium">Suco Garrafa Acerola 500ml</span>
+              <div class="flex items-center gap-3">
+                <span class="font-bold">R$ 7,00</span>
+                <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Suco Garrafa Acerola 500ml',7.00)">
+                  <i class="fas fa-plus text-xs"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="menu-item p-4 card-hover">
+            <div class="flex justify-between items-center">
+              <span class="font-medium">Suco Garrafa Siriguela 500ml</span>
+              <div class="flex items-center gap-3">
+                <span class="font-bold">R$ 7,00</span>
+                <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Suco Garrafa Siriguela 500ml',7.00)">
+                  <i class="fas fa-plus text-xs"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="menu-item p-4 card-hover">
+            <div class="flex justify-between items-center">
+              <span class="font-medium">Suco Garrafa Manga 500ml</span>
+              <div class="flex items-center gap-3">
+                <span class="font-bold">R$ 7,00</span>
+                <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Suco Garrafa Manga 500ml',7.00)">
+                  <i class="fas fa-plus text-xs"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="menu-item p-4 card-hover">
+            <div class="flex justify-between items-center">
+              <span class="font-medium">Suco Garrafa Graviola 500ml</span>
+              <div class="flex items-center gap-3">
+                <span class="font-bold">R$ 7,00</span>
+                <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Suco Garrafa Graviola 500ml',7.00)">
+                  <i class="fas fa-plus text-xs"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="menu-item p-4 card-hover">
+            <div class="flex justify-between items-center">
+              <span class="font-medium">Suco Garrafa Tamarindo 500ml</span>
+              <div class="flex items-center gap-3">
+                <span class="font-bold">R$ 7,00</span>
+                <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Suco Garrafa Tamarindo 500ml',7.00)">
+                  <i class="fas fa-plus text-xs"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sucos Garrafa 1 Litro -->
+      <div class="mb-8">
+        <h4 class="text-lg font-semibold mb-4">Sucos Garrafa 1 Litro</h4>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="menu-item p-4 card-hover">
+            <div class="flex justify-between items-center">
+              <span class="font-medium">Suco Garrafa Maracujá 1L</span>
+              <div class="flex items-center gap-3">
+                <span class="font-bold">R$ 13,50</span>
+                <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Suco Garrafa Maracujá 1L',13.50)">
+                  <i class="fas fa-plus text-xs"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="menu-item p-4 card-hover">
+            <div class="flex justify-between items-center">
+              <span class="font-medium">Suco Garrafa Cajá 1L</span>
+              <div class="flex items-center gap-3">
+                <span class="font-bold">R$ 13,50</span>
+                <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Suco Garrafa Cajá 1L',13.50)">
+                  <i class="fas fa-plus text-xs"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="menu-item p-4 card-hover">
+            <div class="flex justify-between items-center">
+              <span class="font-medium">Suco Garrafa Goiaba 1L</span>
+              <div class="flex items-center gap-3">
+                <span class="font-bold">R$ 12,00</span>
+                <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Suco Garrafa Goiaba 1L',12.00)">
+                  <i class="fas fa-plus text-xs"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="menu-item p-4 card-hover">
+            <div class="flex justify-between items-center">
+              <span class="font-medium">Suco Garrafa Acerola 1L</span>
+              <div class="flex items-center gap-3">
+                <span class="font-bold">R$ 12,00</span>
+                <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Suco Garrafa Acerola 1L',12.00)">
+                  <i class="fas fa-plus text-xs"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="menu-item p-4 card-hover">
+            <div class="flex justify-between items-center">
+              <span class="font-medium">Suco Garrafa Siriguela 1L</span>
+              <div class="flex items-center gap-3">
+                <span class="font-bold">R$ 12,00</span>
+                <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Suco Garrafa Siriguela 1L',12.00)">
+                  <i class="fas fa-plus text-xs"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="menu-item p-4 card-hover">
+            <div class="flex justify-between items-center">
+              <span class="font-medium">Suco Garrafa Manga 1L</span>
+              <div class="flex items-center gap-3">
+                <span class="font-bold">R$ 12,00</span>
+                <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Suco Garrafa Manga 1L',12.00)">
+                  <i class="fas fa-plus text-xs"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="menu-item p-4 card-hover">
+            <div class="flex justify-between items-center">
+              <span class="font-medium">Suco Garrafa Graviola 1L</span>
+              <div class="flex items-center gap-3">
+                <span class="font-bold">R$ 12,00</span>
+                <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Suco Garrafa Graviola 1L',12.00)">
+                  <i class="fas fa-plus text-xs"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="menu-item p-4 card-hover">
+            <div class="flex justify-between items-center">
+              <span class="font-medium">Suco Garrafa Tamarindo 1L</span>
+              <div class="flex items-center gap-3">
+                <span class="font-bold">R$ 12,00</span>
+                <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Suco Garrafa Tamarindo 1L',12.00)">
+                  <i class="fas fa-plus text-xs"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Café -->
+  <section id="cafe" class="py-10 bg-white">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="flex items-center mb-6">
+        <span class="text-2xl mr-3">☕</span>
+        <h3 class="text-2xl font-bold">Vamos de Café?</h3>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Café 150ml</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 2,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Café 150ml',2.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Café 200ml</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 3,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Café 200ml',3.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="menu-item p-4 card-hover">
+          <div class="flex justify-between items-center">
+            <span class="font-medium">Café 250ml</span>
+            <div class="flex items-center gap-3">
+              <span class="font-bold">R$ 4,00</span>
+              <button class="w-8 h-8 orange-gradient text-white rounded-full orange-hover" onclick="adicionarAoCarrinho('Café 250ml',4.00)">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Botão Voltar ao Topo -->
+  <div id="scroll-to-top" class="scroll-to-top" onclick="voltarAoTopo()">
+    <i class="fas fa-arrow-up text-lg"></i>
+  </div>
+
+  <!-- Carrinho Modal -->
+  <div id="carrinho-overlay" class="carrinho-overlay" onclick="fecharCarrinho()"></div>
+  <div id="carrinho-modal" class="carrinho-modal">
+    <div class="p-6 border-b border-gray-200">
+      <div class="flex items-center justify-between">
+        <h3 class="text-xl font-bold">Meu Carrinho</h3>
+        <button onclick="fecharCarrinho()" class="text-gray-500 hover:text-gray-700">
+          <i class="fas fa-times text-xl"></i>
+        </button>
+      </div>
+    </div>
+    
+    <div class="flex-1 overflow-y-auto p-6">
+      <div id="carrinho-items" class="space-y-4">
+        <!-- Items do carrinho serão inseridos aqui -->
+      </div>
+      
+      <div id="carrinho-vazio" class="text-center py-12 text-gray-500">
+        <i class="fas fa-shopping-cart text-4xl mb-4"></i>
+        <p>Seu carrinho está vazio</p>
+        <p class="text-sm">Adicione alguns itens deliciosos!</p>
+      </div>
+    </div>
+    
+    <div id="carrinho-footer" class="p-6 border-t border-gray-200 bg-gray-50" style="display: none;">
+      <div class="flex justify-between items-center mb-4">
+        <span class="text-lg font-semibold">Total:</span>
+        <span id="carrinho-total" class="text-xl font-bold text-orange-600">R$ 0,00</span>
+      </div>
+      <button onclick="finalizarPedido()" class="w-full orange-gradient text-white py-3 rounded-lg font-semibold orange-hover">
+        <i class="fab fa-whatsapp mr-2"></i>
+        Enviar Pedido pelo WhatsApp
+      </button>
+    </div>
+  </div>
+
+  <script>
+    let carrinho = [];
+    let carrinhoAberto = false;
+
+    function adicionarAoCarrinho(nome, preco) {
+      const item = {
+        id: Date.now() + Math.random(),
+        nome: nome,
+        preco: parseFloat(preco),
+        quantidade: 1
+      };
+      
+      const itemExistente = carrinho.find(i => i.nome === nome);
+      if (itemExistente) {
+        itemExistente.quantidade++;
+      } else {
+        carrinho.push(item);
+      }
+      
+      atualizarCarrinho();
+      mostrarNotificacao(`${nome} adicionado ao carrinho!`);
+    }
+
+    function removerDoCarrinho(id) {
+      carrinho = carrinho.filter(item => item.id != id);
+      atualizarCarrinho();
+    }
+
+    function alterarQuantidade(id, novaQuantidade) {
+      if (novaQuantidade <= 0) {
+        removerDoCarrinho(id);
+        return;
+      }
+      
+      const item = carrinho.find(i => i.id == id);
+      if (item) {
+        item.quantidade = parseInt(novaQuantidade);
+        atualizarCarrinho();
+      }
+    }
+
+    function atualizarCarrinho() {
+      const carrinhoItems = document.getElementById('carrinho-items');
+      const carrinhoVazio = document.getElementById('carrinho-vazio');
+      const carrinhoFooter = document.getElementById('carrinho-footer');
+      const cartCounter = document.getElementById('cart-counter');
+      const carrinhoTotal = document.getElementById('carrinho-total');
+      
+      if (carrinho.length === 0) {
+        carrinhoItems.innerHTML = '';
+        carrinhoVazio.style.display = 'block';
+        carrinhoFooter.style.display = 'none';
+        cartCounter.style.display = 'none';
+        return;
+      }
+      
+      carrinhoVazio.style.display = 'none';
+      carrinhoFooter.style.display = 'block';
+      
+      let totalItens = 0;
+      let totalPreco = 0;
+      
+      carrinhoItems.innerHTML = carrinho.map(item => {
+        totalItens += item.quantidade;
+        totalPreco += item.preco * item.quantidade;
+        
+        return `
+          <div class="flex items-center justify-between bg-white p-4 rounded-lg border">
+            <div class="flex-1">
+              <h4 class="font-medium text-sm">${item.nome}</h4>
+              <p class="text-orange-600 font-semibold">R$ ${item.preco.toFixed(2)}</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <button onclick="alterarQuantidade('${item.id}', ${item.quantidade - 1})" class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center hover:bg-gray-300">
+                <i class="fas fa-minus text-xs"></i>
+              </button>
+              <span class="w-8 text-center font-semibold">${item.quantidade}</span>
+              <button onclick="alterarQuantidade('${item.id}', ${item.quantidade + 1})" class="w-8 h-8 bg-orange-500 text-white rounded-full flex items-center justify-center hover:bg-orange-600">
+                <i class="fas fa-plus text-xs"></i>
+              </button>
+              <button onclick="removerDoCarrinho('${item.id}')" class="w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center hover:bg-red-600 ml-2">
+                <i class="fas fa-trash text-xs"></i>
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+      
+      cartCounter.textContent = totalItens;
+      cartCounter.style.display = totalItens > 0 ? 'flex' : 'none';
+      carrinhoTotal.textContent = `R$ ${totalPreco.toFixed(2)}`;
+    }
+
+    function abrirCarrinho() {
+      document.getElementById('carrinho-overlay').style.display = 'block';
+      document.getElementById('carrinho-modal').classList.add('open');
+      carrinhoAberto = true;
+    }
+
+    function fecharCarrinho() {
+      document.getElementById('carrinho-overlay').style.display = 'none';
+      document.getElementById('carrinho-modal').classList.remove('open');
+      carrinhoAberto = false;
+    }
+
+    function finalizarPedido() {
+      if (carrinho.length === 0) return;
+      
+      // Fechar carrinho primeiro
+      fecharCarrinho();
+      
+      // Mostrar checkout automaticamente
+      mostrarCheckout();
+    }
+
+    function mostrarCheckout() {
+      const overlay = document.createElement('div');
+      overlay.className = 'fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4';
+      // Remover clique fora para fechar
+      overlay.onclick = function(e) {
+        e.stopPropagation();
+      };
+      
+      let totalPedido = 0;
+      carrinho.forEach(item => {
+        totalPedido += item.preco * item.quantidade;
+      });
+      
+      overlay.innerHTML = `
+        <div class="bg-white rounded-xl w-full max-w-md max-h-[90vh] overflow-hidden flex flex-col" onclick="event.stopPropagation()">
+          <!-- Header Fixo -->
+          <div class="p-4 border-b border-gray-200 text-center flex-shrink-0 bg-white sticky top-0 z-10">
+            <h3 class="text-lg font-bold">Finalizar Pedido</h3>
+            <p class="text-xs text-gray-600 mt-1">Deslize para navegar • Preencha os dados</p>
+          </div>
+          
+          <!-- Conteúdo Scrollável com Scroll Suave -->
+          <div class="flex-1 overflow-y-auto p-4 scroll-smooth" style="min-height: 0; scroll-behavior: smooth;">
+            <!-- Resumo Compacto -->
+            <div class="bg-orange-50 p-3 rounded-lg mb-4 border border-orange-200 sticky top-0 z-5 shadow-sm">
+              <h4 class="font-semibold text-orange-800 mb-2 text-sm">📋 Resumo do Pedido</h4>
+              <div class="max-h-24 overflow-y-auto space-y-1">
+                ${carrinho.map(item => `
+                  <div class="flex justify-between text-xs">
+                    <span>${item.quantidade}x ${item.nome}</span>
+                    <span class="font-semibold">R$ ${(item.preco * item.quantidade).toFixed(2)}</span>
+                  </div>
+                `).join('')}
+              </div>
+              <div class="border-t border-orange-300 mt-2 pt-2 flex justify-between font-bold text-orange-800 text-sm">
+                <span>Total:</span>
+                <span>R$ ${totalPedido.toFixed(2)}</span>
+              </div>
+            </div>
+            <!-- Formulário -->
+            <form id="checkout-form" class="space-y-4">
+              <!-- Dados Pessoais -->
+              <div class="space-y-3">
+                <h4 class="font-semibold text-gray-800 border-b pb-2 text-sm">👤 Dados Pessoais</h4>
+                
+                <div>
+                  <label class="block text-sm font-medium mb-1">Nome Completo *</label>
+                  <input type="text" id="checkout-nome" required class="w-full p-3 text-sm border border-gray-300 rounded-lg focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-200">
+                </div>
+                
+                <div>
+                  <label class="block text-sm font-medium mb-1">Telefone *</label>
+                  <input type="tel" id="checkout-telefone" required placeholder="(85) 99999-9999" class="w-full p-3 text-sm border border-gray-300 rounded-lg focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-200">
+                </div>
+              </div>
+              
+              <!-- Entrega -->
+              <div class="space-y-3">
+                <h4 class="font-semibold text-gray-800 border-b pb-2 text-sm">🚚 Tipo de Entrega</h4>
+                
+                <div class="space-y-2">
+                  <label class="flex items-center gap-3 p-3 border border-gray-300 rounded-lg cursor-pointer hover:border-orange-300 hover:bg-orange-50 transition-colors">
+                    <input type="radio" name="checkout-entrega" value="retirada" class="text-orange-500" onchange="toggleCheckoutEndereco()">
+                    <span class="text-sm">🏪 Retirada no Local</span>
+                  </label>
+                  
+                  <label class="flex items-center gap-3 p-3 border border-gray-300 rounded-lg cursor-pointer hover:border-orange-300 hover:bg-orange-50 transition-colors">
+                    <input type="radio" name="checkout-entrega" value="delivery" class="text-orange-500" onchange="toggleCheckoutEndereco()">
+                    <span class="text-sm">🛵 Delivery</span>
+                  </label>
+                </div>
+                
+                <div id="checkout-endereco-section" style="display: none;" class="bg-blue-50 p-3 rounded-lg border border-blue-200">
+                  <label class="block text-sm font-medium mb-2">📍 Endereço Completo *</label>
+                  <textarea id="checkout-endereco" rows="3" placeholder="Rua, número, bairro..." class="w-full p-3 text-sm border border-gray-300 rounded-lg focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-200 resize-none"></textarea>
+                </div>
+              </div>
+              
+              <!-- Pagamento -->
+              <div class="space-y-3">
+                <h4 class="font-semibold text-gray-800 border-b pb-2 text-sm">💳 Forma de Pagamento</h4>
+                
+                <div class="space-y-2">
+                  <label class="flex items-center gap-3 p-3 border border-gray-300 rounded-lg cursor-pointer hover:border-orange-300 hover:bg-orange-50 transition-colors">
+                    <input type="radio" name="checkout-pagamento" value="dinheiro" class="text-orange-500" onchange="toggleCheckoutPixInfo()">
+                    <span class="text-sm">💵 Dinheiro</span>
+                  </label>
+                  
+                  <label class="flex items-center gap-3 p-3 border border-gray-300 rounded-lg cursor-pointer hover:border-orange-300 hover:bg-orange-50 transition-colors">
+                    <input type="radio" name="checkout-pagamento" value="cartao" class="text-orange-500" onchange="toggleCheckoutPixInfo()">
+                    <span class="text-sm">💳 Cartão</span>
+                  </label>
+                  
+                  <label class="flex items-center gap-3 p-3 border border-gray-300 rounded-lg cursor-pointer hover:border-orange-300 hover:bg-orange-50 transition-colors">
+                    <input type="radio" name="checkout-pagamento" value="pix" class="text-orange-500" onchange="toggleCheckoutPixInfo()">
+                    <span class="text-sm">📱 PIX</span>
+                  </label>
+                </div>
+                
+                <div id="checkout-pix-info" style="display: none;" class="bg-orange-50 p-3 rounded-lg border border-orange-200">
+                  <h5 class="font-semibold text-orange-800 mb-2 text-sm">📱 Chave do PIX</h5>
+                  <div class="text-sm space-y-2">
+                    <div class="flex items-center justify-between bg-white p-3 rounded-lg border">
+                      <div>
+                        <p><strong>Celular:</strong> 85 989901099</p>
+                        <p><strong>Banco:</strong> PagSeguro</p>
+                        <p>(Keila Lourenço da Silva)</p>
+                      </div>
+                      <button type="button" onclick="copiarChavePix()" class="bg-orange-500 text-white px-3 py-2 rounded-lg text-sm hover:bg-orange-600 transition-colors">
+                        Copiar
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Observações -->
+              <div class="space-y-3">
+                <h4 class="font-semibold text-gray-800 border-b pb-2 text-sm">📝 Observações</h4>
+                <textarea id="checkout-observacoes" rows="3" placeholder="Observações opcionais..." class="w-full p-3 text-sm border border-gray-300 rounded-lg focus:border-orange-500 focus:outline-none focus:ring-2 focus:ring-orange-200 resize-none"></textarea>
+              </div>
+            </form>
+          </div>
+          
+          <!-- Footer com Botões -->
+          <div class="p-4 border-t border-gray-200 bg-gray-50 flex-shrink-0 sticky bottom-0">
+            <div class="flex gap-3">
+              <button type="button" onclick="fecharCheckout()" class="flex-1 bg-gray-300 text-gray-700 py-3 rounded-lg font-semibold hover:bg-gray-400 text-sm transition-colors">
+                Voltar
+              </button>
+              <button type="submit" form="checkout-form" class="flex-1 orange-gradient text-white py-3 rounded-lg font-semibold orange-hover text-sm transition-colors">
+                <i class="fab fa-whatsapp mr-2"></i>
+                Finalizar
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+      
+      document.body.appendChild(overlay);
+      
+      // Event listener para o formulário
+      document.getElementById('checkout-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        processarCheckout();
+      });
+      
+      // Focar no primeiro campo
+      document.getElementById('checkout-nome').focus();
+    }
+
+    function toggleCheckoutEndereco() {
+      const entrega = document.querySelector('input[name="checkout-entrega"]:checked');
+      if (!entrega) return;
+      
+      const enderecoSection = document.getElementById('checkout-endereco-section');
+      const enderecoInput = document.getElementById('checkout-endereco');
+      
+      if (entrega.value === 'delivery') {
+        enderecoSection.style.display = 'block';
+        enderecoInput.required = true;
+      } else {
+        enderecoSection.style.display = 'none';
+        enderecoInput.required = false;
+        enderecoInput.value = '';
+      }
+    }
+
+    function toggleCheckoutPixInfo() {
+      const pagamento = document.querySelector('input[name="checkout-pagamento"]:checked');
+      if (!pagamento) return;
+      
+      const pixInfo = document.getElementById('checkout-pix-info');
+      
+      if (pagamento.value === 'pix') {
+        pixInfo.style.display = 'block';
+      } else {
+        pixInfo.style.display = 'none';
+      }
+    }
+
+    function fecharCheckout() {
+      const overlay = document.querySelector('.fixed.inset-0.bg-black.bg-opacity-50');
+      if (overlay) {
+        document.body.removeChild(overlay);
+      }
+    }
+
+    function processarCheckout() {
+      // Validar campos obrigatórios
+      const nome = document.getElementById('checkout-nome').value.trim();
+      const telefone = document.getElementById('checkout-telefone').value.trim();
+      const entrega = document.querySelector('input[name="checkout-entrega"]:checked');
+      const pagamento = document.querySelector('input[name="checkout-pagamento"]:checked');
+      
+      if (!nome || !telefone || !entrega || !pagamento) {
+        alert('Por favor, preencha todos os campos obrigatórios!');
+        return;
+      }
+      
+      if (entrega.value === 'delivery') {
+        const endereco = document.getElementById('checkout-endereco').value.trim();
+        if (!endereco) {
+          alert('Por favor, informe o endereço para entrega!');
+          return;
+        }
+      }
+      
+      // Montar mensagem
+      let mensagem = "🍽️ *PEDIDO - SABOR CASEIRO LANCHES*\n\n";
+      
+      // Dados do cliente
+      mensagem += "👤 *DADOS DO CLIENTE:*\n";
+      mensagem += `• Nome: ${nome}\n`;
+      mensagem += `• Telefone: ${telefone}\n\n`;
+      
+      // Itens do pedido
+      mensagem += "🛒 *ITENS DO PEDIDO:*\n";
+      let total = 0;
+      
+      carrinho.forEach(item => {
+        const subtotal = item.preco * item.quantidade;
+        total += subtotal;
+        mensagem += `• ${item.quantidade}x ${item.nome}\n`;
+        mensagem += `  R$ ${item.preco.toFixed(2)} cada = R$ ${subtotal.toFixed(2)}\n\n`;
+      });
+      
+      mensagem += `💰 *TOTAL: R$ ${total.toFixed(2)}*\n\n`;
+      
+      // Tipo de entrega
+      mensagem += "🚚 *ENTREGA:*\n";
+      if (entrega.value === 'retirada') {
+        mensagem += "🏪 Retirada no Local\n\n";
+      } else {
+        const endereco = document.getElementById('checkout-endereco').value.trim();
+        mensagem += "🛵 Delivery\n";
+        mensagem += `📍 Endereço: ${endereco}\n`;
+        mensagem += "⚠️ Taxa de entrega será informada\n\n";
+      }
+      
+      // Forma de pagamento
+      mensagem += "💳 *PAGAMENTO:*\n";
+      const formaPagamento = {
+        'dinheiro': '💵 Dinheiro',
+        'cartao': '💳 Cartão de Crédito ou Débito (Presencial)',
+        'pix': '📱 PIX'
+      };
+      mensagem += formaPagamento[pagamento.value] + "\n";
+      
+      if (pagamento.value === 'pix') {
+        mensagem += "\n📱 *CHAVE DO PIX:*\n";
+        mensagem += "• Celular: 85 989901099\n";
+        mensagem += "• Banco: PagSeguro\n";
+        mensagem += "• (Keila Lourenço da Silva)\n";
+      }
+      
+      // Observações
+      const observacoes = document.getElementById('checkout-observacoes').value.trim();
+      if (observacoes) {
+        mensagem += `\n📝 *OBSERVAÇÕES:*\n${observacoes}\n`;
+      }
+      
+      mensagem += "\n✨ Obrigado pela preferência! 😊";
+      
+      // Enviar para WhatsApp
+      const numeroWhatsApp = "5585981489840";
+      const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensagem)}`;
+      
+      window.open(url, '_blank');
+      
+      // Fechar checkout e carrinho
+      fecharCheckout();
+      fecharCarrinho();
+      
+      // Limpar carrinho
+      carrinho = [];
+      atualizarCarrinho();
+      
+      mostrarNotificacao('Pedido enviado com sucesso! 🎉');
+    }
+
+
+
+    function copiarChavePix() {
+      const chavePix = "85989901099";
+      
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(chavePix).then(() => {
+          mostrarNotificacao('Chave PIX copiada! 📋');
+        }).catch(() => {
+          // Fallback se clipboard API falhar
+          copiarTextoFallback(chavePix);
+        });
+      } else {
+        // Fallback para navegadores mais antigos
+        copiarTextoFallback(chavePix);
+      }
+    }
+
+    function copiarTextoFallback(texto) {
+      const textArea = document.createElement('textarea');
+      textArea.value = texto;
+      textArea.style.position = 'fixed';
+      textArea.style.left = '-999999px';
+      textArea.style.top = '-999999px';
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      
+      try {
+        document.execCommand('copy');
+        mostrarNotificacao('Chave PIX copiada! 📋');
+      } catch (err) {
+        mostrarNotificacao('Erro ao copiar. Chave: 85989901099');
+      }
+      
+      document.body.removeChild(textArea);
+    }
+
+    function mostrarInformacoes() {
+      const overlay = document.createElement('div');
+      overlay.className = 'fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4';
+      overlay.onclick = function(e) {
+        if (e.target === overlay) {
+          document.body.removeChild(overlay);
+        }
+      };
+      
+      overlay.innerHTML = `
+        <div class="bg-white rounded-xl w-full max-w-lg max-h-[90vh] overflow-hidden flex flex-col" onclick="event.stopPropagation()">
+          <!-- Header -->
+          <div class="p-4 border-b border-gray-200 text-center flex-shrink-0 bg-orange-50">
+            <div class="flex items-center justify-between">
+              <h3 class="text-lg font-bold text-orange-800">ℹ️ Informações</h3>
+              <button onclick="fecharInformacoes()" class="text-gray-500 hover:text-gray-700">
+                <i class="fas fa-times text-xl"></i>
+              </button>
+            </div>
+            <p class="text-sm text-orange-600 mt-1">SABOR CASEIRO LANCHES</p>
+          </div>
+          
+          <!-- Conteúdo Scrollável -->
+          <div class="flex-1 overflow-y-auto p-4 scroll-smooth">
+            
+            <!-- Endereço -->
+            <div class="mb-6">
+              <h4 class="font-semibold text-gray-800 mb-3 flex items-center gap-2">
+                <i class="fas fa-map-marker-alt text-orange-500"></i>
+                Endereço
+              </h4>
+              <p class="text-sm text-gray-600 bg-gray-50 p-3 rounded-lg">
+                Av. Marginal Nordeste, 304 - Jereissati III<br>
+                Pacatuba - CE, 61800-000, Brasil
+              </p>
+            </div>
+
+            <!-- Tipos de Serviço -->
+            <div class="mb-6">
+              <h4 class="font-semibold text-gray-800 mb-3 flex items-center gap-2">
+                <i class="fas fa-truck text-orange-500"></i>
+                Tipos de Serviço
+              </h4>
+              <div class="space-y-2">
+                <div class="bg-blue-50 p-3 rounded-lg border border-blue-200">
+                  <p class="font-medium text-blue-800">🛵 Delivery</p>
+                  <p class="text-sm text-blue-600">Abrangência: JEREISSATI 2, JEREISSATI 3</p>
+                </div>
+                <div class="bg-green-50 p-3 rounded-lg border border-green-200">
+                  <p class="font-medium text-green-800">🏪 Retirada no Local</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Horário de Funcionamento -->
+            <div class="mb-6">
+              <h4 class="font-semibold text-gray-800 mb-3 flex items-center gap-2">
+                <i class="fas fa-clock text-orange-500"></i>
+                Horário de Funcionamento
+              </h4>
+              <div class="space-y-2 text-sm">
+                <div class="flex justify-between p-2 bg-red-50 rounded border border-red-200">
+                  <span class="font-medium">Domingo</span>
+                  <span class="text-red-600 font-semibold">Fechado</span>
+                </div>
+                <div class="flex justify-between p-2 bg-gray-50 rounded">
+                  <span class="font-medium">Segunda-feira</span>
+                  <span>06:30-10:30 • 14:00-18:00</span>
+                </div>
+                <div class="flex justify-between p-2 bg-gray-50 rounded">
+                  <span class="font-medium">Terça-feira</span>
+                  <span>06:30-10:30 • 14:00-18:00</span>
+                </div>
+                <div class="flex justify-between p-2 bg-gray-50 rounded">
+                  <span class="font-medium">Quarta-feira</span>
+                  <span>06:30-10:30 • 14:00-18:00</span>
+                </div>
+                <div class="flex justify-between p-2 bg-gray-50 rounded">
+                  <span class="font-medium">Quinta-feira</span>
+                  <span>06:30-10:30 • 14:00-18:00</span>
+                </div>
+                <div class="flex justify-between p-2 bg-gray-50 rounded">
+                  <span class="font-medium">Sexta-feira</span>
+                  <span>06:30-10:30 • 14:00-18:00</span>
+                </div>
+                <div class="flex justify-between p-2 bg-gray-50 rounded">
+                  <span class="font-medium">Sábado</span>
+                  <span>06:30-10:30</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Especialidades -->
+            <div class="mb-4">
+              <h4 class="font-semibold text-gray-800 mb-3 flex items-center gap-2">
+                <i class="fas fa-utensils text-orange-500"></i>
+                Nossas Especialidades
+              </h4>
+              <div class="grid grid-cols-2 gap-2 text-sm">
+                <div class="bg-orange-50 p-2 rounded text-center border border-orange-200">
+                  <span class="text-orange-700 font-medium">🥖 Pão na Chapa</span>
+                </div>
+                <div class="bg-orange-50 p-2 rounded text-center border border-orange-200">
+                  <span class="text-orange-700 font-medium">🫓 Tapioca</span>
+                </div>
+                <div class="bg-orange-50 p-2 rounded text-center border border-orange-200">
+                  <span class="text-orange-700 font-medium">🌽 Cuscuz</span>
+                </div>
+                <div class="bg-orange-50 p-2 rounded text-center border border-orange-200">
+                  <span class="text-orange-700 font-medium">🥟 Pastéis</span>
+                </div>
+                <div class="bg-orange-50 p-2 rounded text-center border border-orange-200">
+                  <span class="text-orange-700 font-medium">🍰 Bolos</span>
+                </div>
+                <div class="bg-orange-50 p-2 rounded text-center border border-orange-200">
+                  <span class="text-orange-700 font-medium">🍲 Caldo</span>
+                </div>
+                <div class="bg-orange-50 p-2 rounded text-center border border-orange-200">
+                  <span class="text-orange-700 font-medium">🥤 Bebidas</span>
+                </div>
+                <div class="bg-orange-50 p-2 rounded text-center border border-orange-200">
+                  <span class="text-orange-700 font-medium">☕ Café</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Footer -->
+          <div class="p-4 border-t border-gray-200 bg-gray-50 flex-shrink-0">
+            <button onclick="fecharInformacoes()" class="w-full orange-gradient text-white py-3 rounded-lg font-semibold orange-hover">
+              Fechar
+            </button>
+          </div>
+        </div>
+      `;
+      
+      document.body.appendChild(overlay);
+    }
+
+    function fecharInformacoes() {
+      const overlay = document.querySelector('.fixed.inset-0.bg-black.bg-opacity-50');
+      if (overlay) {
+        document.body.removeChild(overlay);
+      }
+    }
+
+    function mostrarNotificacao(mensagem) {
+      const notificacao = document.createElement('div');
+      notificacao.className = 'fixed top-20 right-4 bg-green-500 text-white px-4 py-2 rounded-lg shadow-lg z-50 transform translate-x-full transition-transform duration-300';
+      notificacao.innerHTML = `
+        <div class="flex items-center gap-2">
+          <i class="fas fa-check-circle"></i>
+          <span>${mensagem}</span>
+        </div>
+      `;
+      
+      document.body.appendChild(notificacao);
+      
+      setTimeout(() => {
+        notificacao.classList.remove('translate-x-full');
+      }, 100);
+      
+      setTimeout(() => {
+        notificacao.classList.add('translate-x-full');
+        setTimeout(() => {
+          document.body.removeChild(notificacao);
+        }, 300);
+      }, 3000);
+    }
+
+    function verificarStatusFuncionamento() {
+      const agora = new Date();
+      const diaSemana = agora.getDay(); // 0 = Domingo, 1 = Segunda, etc.
+      const horaAtual = agora.getHours();
+      const minutoAtual = agora.getMinutes();
+      const horaMinutoAtual = horaAtual * 60 + minutoAtual; // Converter para minutos
+      
+      const statusIndicator = document.getElementById('status-indicator');
+      const statusDot = document.getElementById('status-dot');
+      const statusText = document.getElementById('status-text');
+      
+      let aberto = false;
+      
+      // Horários de funcionamento (em minutos desde 00:00)
+      const horarios = {
+        0: [], // Domingo - Fechado
+        1: [[390, 630], [840, 1080]], // Segunda: 06:30-10:30, 14:00-18:00
+        2: [[390, 630], [840, 1080]], // Terça: 06:30-10:30, 14:00-18:00
+        3: [[390, 630], [840, 1080]], // Quarta: 06:30-10:30, 14:00-18:00
+        4: [[390, 630], [840, 1080]], // Quinta: 06:30-10:30, 14:00-18:00
+        5: [[390, 630], [840, 1080]], // Sexta: 06:30-10:30, 14:00-18:00
+        6: [[390, 630]] // Sábado: 06:30-10:30
+      };
+      
+      const horariosHoje = horarios[diaSemana];
+      
+      // Verificar se está dentro de algum horário de funcionamento
+      for (const [inicio, fim] of horariosHoje) {
+        if (horaMinutoAtual >= inicio && horaMinutoAtual <= fim) {
+          aberto = true;
+          break;
+        }
+      }
+      
+      if (aberto) {
+        statusIndicator.className = 'flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-green-100 text-green-800';
+        statusDot.className = 'w-2 h-2 rounded-full bg-green-500';
+        statusText.textContent = 'Aberto';
+      } else {
+        statusIndicator.className = 'flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-red-100 text-red-800';
+        statusDot.className = 'w-2 h-2 rounded-full bg-red-500';
+        statusText.textContent = 'Fechado';
+      }
+    }
+
+    function voltarAoTopo() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    }
+
+    function toggleScrollToTopButton() {
+      const scrollToTopBtn = document.getElementById('scroll-to-top');
+      if (window.pageYOffset > 300) {
+        scrollToTopBtn.classList.add('show');
+      } else {
+        scrollToTopBtn.classList.remove('show');
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      atualizarCarrinho();
+      verificarStatusFuncionamento();
+      
+      // Atualizar status a cada minuto
+      setInterval(verificarStatusFuncionamento, 60000);
+      
+      // Controlar visibilidade do botão de voltar ao topo
+      window.addEventListener('scroll', toggleScrollToTopButton);
+      toggleScrollToTopButton(); // Verificar posição inicial
+    });
+  </script>
+
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'984777863719f617',t:'MTc1ODc3MTI3OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
